@@ -39,6 +39,18 @@ async function memegen (url, top, bottom) {
 
 const server = express();
 
+server.get('/', (_req, res) => {
+  res.send(`
+    <form action="/test">
+      <h1>test yo memes dawg</h1>
+      Image URL: <input name="url" value="https://i.imgur.com/ddahAFd.png"><br>
+      Top: <input name="top" value="I AM EXPERIENCING A FEELING OF SUCCESS"><br>
+      Bottom: <input name="bottom" value="BECAUSE I HAVE DONE A THING"><br>
+      <button type="submit">LFG</button>
+    </form>
+  `);
+});
+
 server.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
@@ -47,14 +59,15 @@ server.get('/health', (_req, res) => {
 });
 
 server.get('/memegen', async (req, res) => {
-  const meme = await memegen(
-    'https://i.imgur.com/ddahAFd.png',
-    'MADE A SIMPLE MEME GENERATOR',
-    'IN ONLY 35 LINES OF JAVASCRIPT'
-  );
+  const meme = await memegen(req.query.url, req.query.top, req.query.bottom);
+  res.send(meme);
+});
+
+server.get('/test', async (req, res) => {
+  const meme = await memegen(req.query.url, req.query.top, req.query.bottom);
   res.send(`<img src="${meme}">`);
 });
 
 server.listen(PORT, () => {
-  console.log(`Example app listening on PORT ${PORT}`);
+  console.log(`memegen running on port ${PORT}`);
 });
