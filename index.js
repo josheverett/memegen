@@ -1,8 +1,10 @@
 import express from 'express';
 import canvasUtils from 'canvas';
-const { createCanvas, loadImage } = canvasUtils;
+const { createCanvas, loadImage, registerFont } = canvasUtils;
 
 const PORT = 3000;
+
+registerFont('impact.ttf', { family: 'Impact' });
 
 function drawText (ctx, text, width, height, top) {
   const margin = height * 0.1;
