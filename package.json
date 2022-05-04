@@ -7,6 +7,9 @@
   "author": "Josh Everett <josh.r.everett@gmail.com>",
   "license": "none",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node index.js"
   },

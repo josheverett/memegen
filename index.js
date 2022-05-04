@@ -2,7 +2,7 @@ import express from 'express';
 import canvasUtils from 'canvas';
 const { createCanvas, loadImage, registerFont } = canvasUtils;
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 registerFont('impact.ttf', { family: 'Impact' });
 
