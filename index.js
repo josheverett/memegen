@@ -77,6 +77,17 @@ server.get('/test.png', async (req, res) => {
   res.send(img);
 });
 
+server.get('/slackhatesyou/:url/:top/:bottom', async (req, res) => {
+  console.log('WTF', req.params.url, req.params.top, req.params.bottom);
+  console.log('WTF2', req.url);
+  const meme = await memegen(req.params.url, req.params.top, req.params.bottom);
+  const lmao = meme.replace('data:image/png;base64,', '');
+  const img = Buffer.from(lmao, 'base64');
+  res.set('Content-Type', 'image/png');
+  res.send(img);
+});
+
+
 server.get('/memegen-datauri', async (req, res) => {
   const meme = await memegen(req.query.url, req.query.top, req.query.bottom);
   res.send(meme);
