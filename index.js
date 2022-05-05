@@ -67,7 +67,8 @@ server.get('/memegen', async (req, res) => {
 });
 
 server.get('/test.png', async (req, res) => {
-  const meme = await memegen('https://i.imgur.com/ddahAFd.png', 'foo', 'bar');
+  // const meme = await memegen('https://i.imgur.com/ddahAFd.png', 'foo', 'bar');
+  const meme = await memegen(req.query.url, req.query.top, req.query.bottom);
   const lmao = meme.replace('data:image/png;base64,', '');
   const img = Buffer.from(lmao, 'base64');
   res.set('Content-Type', 'image/png');
