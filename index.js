@@ -41,7 +41,7 @@ const server = express();
 
 server.get('/', (_req, res) => {
   res.send(`
-    <form action="/test">
+    <form action="/memegen">
       <h1>test yo memes dawg</h1>
       Image URL: <input name="url" value="https://i.imgur.com/ddahAFd.png"><br>
       Top: <input name="top" value="I AM EXPERIENCING A FEELING OF SUCCESS"><br>
@@ -59,6 +59,14 @@ server.get('/health', (_req, res) => {
 });
 
 server.get('/memegen', async (req, res) => {
+  const meme = await memegen(req.query.url, req.query.top, req.query.bottom);
+  const lmao = meme.replace('data:image/png;base64,', '');
+  const img = Buffer.from(lmao, 'base64');
+  res.set('Content-Type', 'image/png');
+  res.send(img);
+});
+
+server.get('/memegen-datauri', async (req, res) => {
   const meme = await memegen(req.query.url, req.query.top, req.query.bottom);
   res.send(meme);
 });
